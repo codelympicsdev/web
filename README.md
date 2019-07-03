@@ -19,12 +19,12 @@ codelympics.dev consists of three parts main pieces. These link together to form
 - Handles auth
 - Used to send and recieve data from and to the user
 - Submit challenge answers and view results via this endpoint
-- Proxies and deals with the "Challenge Executor"
+- Proxies and deals with the _Runner_
 - Written in Go with GraphQL endpoint for data and REST for auth
 
-### Challenge Executor
+### Runner
 
 - Compiles user challenge responses (in clean container environment)
 - Runs the challenge response and collects results (in clean container environment)
 - Checks if results match expected output
-- Written in Go. Uses Docker for container envs
+- Written in Go. Uses Docker for container environments
