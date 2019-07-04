@@ -10,21 +10,19 @@ codelympics.dev consists of three parts main pieces. These link together to form
 
 ### Frontend
 
-- Used to view challenges, submit answers and view results
-- Static single page progressive web app that pulls data from the public API
+- Used to view challenges, manage responses and view results
+- Static SPA progressive web app that pulls data from the public API
 - Written in TS/React
 
 ### Public API
 
 - Handles auth
 - Used to send and recieve data from and to the user
-- Submit challenge answers and view results via this endpoint
-- Proxies and deals with the _Runner_
+- Submit challenge answers and view results
 - Written in Go with GraphQL endpoint for data and REST for auth
 
-### Runner
+### CLI
 
-- Compiles user challenge responses (in clean container environment)
-- Runs the challenge response and collects results (in clean container environment)
-- Checks if results match expected output
-- Written in Go. Uses Docker for container environments
+- User installs on their machine
+- Runs their code with input from the API and sends back the results
+- Written in Go and talks to API
