@@ -19,7 +19,7 @@ codelympics.dev consists of three parts main pieces. These link together to form
 - Handles auth
 - Used to send and recieve data from and to the user
 - Submit challenge answers and view results
-- Written in Go with GraphQL endpoint for data and REST for auth
+- Written in Go REST endpoint for data and auth
 
 ### CLI
 
