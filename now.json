@@ -1,0 +1,9 @@
+{
+  "name": "codelympics",
+  "version": 2,
+  "alias": ["codelympics.dev"],
+  "regions": ["bru1"],
+  "github": {
+    "silent": true
+  }
+}
