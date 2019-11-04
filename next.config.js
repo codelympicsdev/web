@@ -1,4 +1,3 @@
-// next.config.js
 const withPreact = (nextConfig = {}) => {
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
@@ -28,4 +27,8 @@ const withPreact = (nextConfig = {}) => {
   });
 };
 
-module.exports = withPreact();
+module.exports = withPreact({
+  webpack: (config, { dev }) => {
+    return config;
+  },
+});

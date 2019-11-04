@@ -1,0 +1,5 @@
+schema: https://api.codelympics.dev/v0/graphql
+includes: ['**/*.graphql']
+extensions:
+  endpoints:
+    default: https://api.codelympics.dev/v0/graphql

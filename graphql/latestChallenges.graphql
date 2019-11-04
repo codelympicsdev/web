@@ -1,0 +1,8 @@
+query LatestChallenges {
+  challenges(limit: 6) {
+    id
+    name
+    description
+    publish_date
+  }
+}

@@ -1,0 +1,7 @@
+query CurrentUser {
+  me {
+    id
+    full_name
+    avatar_url
+  }
+}
