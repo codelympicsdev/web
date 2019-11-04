@@ -20,6 +20,23 @@ class Document extends NextDocument {
             href='/static/favicon.png'
           />
           <meta name='theme-color' content='#319795'></meta>
+          <style>{`
+          @media (prefers-color-scheme: dark) {
+            html, body {
+              background-color: #1A202C;
+              color: white;
+            }
+
+            header {
+              background-color: #1A202C !important;
+              color: white;
+            }
+
+            *, ::before, ::after {
+              border-color: rgba(255,255,255,0.16) !important;
+            }
+          }
+          `}</style>
         </Head>
         <body>
           <Main />

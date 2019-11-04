@@ -23,7 +23,11 @@ const Header = () => {
         <Flex align='center' mr={0}>
           <>
             <Link href='/'>
-              <Image src='/static/logo_no_slogan.png' height='8' width='auto' />
+              <img
+                src='/static/logo_no_slogan.png'
+                style={{ height: 32, width: 64 }}
+                alt=''
+              />
             </Link>
             <Link href='/'>
               <a>&nbsp;&nbsp;codelympics.dev</a>
@@ -37,11 +41,11 @@ const Header = () => {
           align='center'
           color='gray.500'
           justify='flex-end'>
-          <Button variant='ghost' color='current'>
-            <Link href={token ? '/logout' : '/login'}>
-              <a>{token ? 'Logout' : 'Login'}</a>
-            </Link>
-          </Button>
+          <Link href={token ? '/logout' : '/login'}>
+            <Button variant='ghost' color='current'>
+              {token ? 'Logout' : 'Login'}
+            </Button>
+          </Link>
         </Flex>
       </Flex>
     </Box>

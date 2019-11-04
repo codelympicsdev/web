@@ -2,18 +2,14 @@ import { NextPage } from 'next';
 import { redirect } from '../util/redirect';
 import { getToken } from '../util/auth';
 import { AUTH_URL } from '../util/config';
+import { Redirect } from '../components/Redirect';
 
 interface LoginProps {
   redirectURL: string;
 }
 
 const Login: NextPage<LoginProps> = ({ redirectURL }) => {
-  return (
-    <div>
-      Redirecting. If you are not redirected automatically please click{' '}
-      <a href={redirectURL}>here</a>.
-    </div>
-  );
+  return <Redirect redirectURL={redirectURL} page='signin page' />;
 };
 
 Login.getInitialProps = async ctx => {

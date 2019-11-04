@@ -13,7 +13,13 @@ export const ChallengeCard = (props: { challenge: Challenge }) => {
 
   return (
     <Link href={`/challenge/${challenge.id}`}>
-      <Box w='100%' m={3} borderWidth='1px' rounded='lg' overflow='hidden'>
+      <Box
+        w='100%'
+        maxW={300}
+        m={3}
+        borderWidth='1px'
+        rounded='lg'
+        overflow='hidden'>
         <Box p='6'>
           <Box fontWeight='semibold' as='h4' lineHeight='tight' isTruncated>
             {challenge.name}

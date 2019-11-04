@@ -26,9 +26,13 @@ const withPreact = (nextConfig = {}) => {
     },
   });
 };
-
-module.exports = withPreact({
-  webpack: (config, { dev }) => {
-    return config;
-  },
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
 });
+module.exports = withBundleAnalyzer(
+  withPreact({
+    webpack: (config, { dev }) => {
+      return config;
+    },
+  })
+);
