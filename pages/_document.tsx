@@ -12,7 +12,6 @@ class Document extends NextDocument {
       <Html>
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
-          <meta title='codelympics.dev' />
           <link
             rel='icon'
             type='image/png'

@@ -1,0 +1,24 @@
+query ChallengeDetails($id: ID!, $signedIn: Boolean!) {
+  challenge(id: $id) {
+    id
+    name
+    description
+    max_attempts
+    publish_date
+    results_date
+    attempts(limit: 3) @include(if: $signedIn) {
+      id
+      started
+      timeout
+      completed
+      recieved_output {
+        stdout
+        stderr
+      }
+      expected_output {
+        stdout
+        stderr
+      }
+    }
+  }
+}

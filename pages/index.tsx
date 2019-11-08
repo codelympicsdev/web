@@ -1,13 +1,18 @@
 import React from 'react';
-import { Heading, Avatar, Flex, Text, Grid } from '@chakra-ui/core';
-import { useCurrentUserQuery, useLatestChallengesQuery } from '../graphql';
-import { useToken } from '../components/Token';
+import { Heading, Avatar, Flex, Text } from '@chakra-ui/core';
+import { useHomeQuery, HomeQueryResult } from '../graphql';
+import { useUserSignedIn } from '../components/Token';
 import { ChallengeCard } from '../components/Challenge';
 import { GraphQLHelper, isQueryReady } from '../components/GraphQL';
 
 const Home = () => {
-  const token = useToken();
-  if (!token) {
+  const userSignedIn = useUserSignedIn();
+  const query = useHomeQuery({
+    variables: {
+      signedIn: userSignedIn,
+    },
+  });
+  if (!userSignedIn) {
     return (
       <Flex align='center' direction='column'>
         <Heading as='h2' size='lg' pt={5} textAlign='center'>
@@ -22,16 +27,19 @@ const Home = () => {
         <Text textAlign='center' pt={5}>
           Here are some of our latest challenges for you to solve.
         </Text>
-        <ChallengeGrid />
+        <ChallengeGrid query={query} />
       </Flex>
     );
   }
 
-  const userQuery = useCurrentUserQuery();
-  if (!isQueryReady(userQuery)) {
-    return <GraphQLHelper query={userQuery} />;
+  if (!isQueryReady(query)) {
+    return (
+      <Flex align='center' direction='column'>
+        <GraphQLHelper query={query} />
+      </Flex>
+    );
   }
-  const { me } = userQuery.data;
+  const { me } = query.data;
   return (
     <Flex align='center' direction='column'>
       <Avatar src={me.avatar_url} size='lg' />
@@ -41,21 +49,21 @@ const Home = () => {
       <Text textAlign='center' pt={3}>
         Here are some of our latest challenges.
       </Text>
-      <ChallengeGrid />
+      <ChallengeGrid query={query} />
     </Flex>
   );
 };
 
-const ChallengeGrid = () => {
-  const challengesQuery = useLatestChallengesQuery();
-  if (!isQueryReady(challengesQuery)) {
+const ChallengeGrid = (props: { query: HomeQueryResult }) => {
+  const { query } = props;
+  if (!isQueryReady(query)) {
     return (
       <Flex align='center' direction='column' pt={5}>
-        <GraphQLHelper query={challengesQuery} />
+        <GraphQLHelper query={query} />
       </Flex>
     );
   }
-  const { challenges } = challengesQuery.data;
+  const { challenges } = query.data;
 
   return (
     <Flex align='stretch' w='100%' justify='center' wrap='wrap' pt={5}>

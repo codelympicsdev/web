@@ -1,6 +1,16 @@
 import { NextPageContext } from 'next';
 import nookies from 'nookies';
 
+let publicKey: string = null;
+
+export const getPublicKey = async () => {
+  if (!publicKey) {
+    const req = await fetch('https://api.codelympics.dev/v0/auth/publickey');
+    if (!req.ok) throw Error('could not get the public key');
+    publicKey = await req.text();
+  }
+  return publicKey;
+};
 
 export const getToken = (ctx: NextPageContext) => {
   const { token } = nookies.get(ctx);

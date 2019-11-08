@@ -8,11 +8,12 @@ import {
   Divider,
 } from '@chakra-ui/core';
 import Header from '../components/Header';
-import { getToken } from '../util/auth';
+import { getToken, removeToken, getPublicKey } from '../util/auth';
 import { TokenProvider } from '../components/Token';
 
 import withData from '../util/graphql';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { verify } from 'jsonwebtoken';
 
 const Main = props => <Box as='main' mx='auto' mb='3rem' {...props} />;
 
@@ -80,7 +81,18 @@ App.getInitialProps = async ({ Component, ctx }) => {
     pageProps = await Component.getInitialProps(ctx);
   }
 
-  return { pageProps, token: getToken(ctx) };
+  let token = getToken(ctx);
+  if (token) {
+    const publicKey = await getPublicKey();
+    try {
+      verify(token, publicKey);
+    } catch (error) {
+      console.error(token, error);
+      token = null;
+      removeToken(ctx);
+    }
+  }
+  return { pageProps, token };
 };
 
 export default withData(App as any);

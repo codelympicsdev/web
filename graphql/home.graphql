@@ -1,0 +1,13 @@
+query Home($signedIn: Boolean!) {
+  challenges(limit: 6) {
+    id
+    name
+    description
+    publish_date
+    results_date
+  }
+  me @include(if: $signedIn) {
+    full_name
+    avatar_url
+  }
+}

@@ -11,3 +11,5 @@ export const TokenProvider = ({
 }) => <TokenContext.Provider value={token}>{children}</TokenContext.Provider>;
 
 export const useToken = () => useContext(TokenContext);
+
+export const useUserSignedIn = () => !!useToken();

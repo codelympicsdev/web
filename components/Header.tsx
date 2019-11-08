@@ -1,9 +1,11 @@
 import { Box, Flex, useColorMode, Image, Button } from '@chakra-ui/core';
 import Link from 'next/link';
 import { useToken } from './Token';
+import { useRouter } from 'next/router';
 
 const Header = () => {
   const token = useToken();
+  const { asPath } = useRouter();
 
   const { colorMode } = useColorMode();
   const bg = { light: 'white', dark: 'gray.800' };
@@ -41,9 +43,14 @@ const Header = () => {
           align='center'
           color='gray.500'
           justify='flex-end'>
-          <Link href={token ? '/logout' : '/login'}>
+          <Link
+            href={
+              token
+                ? `/signout?redirect=${encodeURIComponent(asPath)}`
+                : `/signin?redirect=${encodeURIComponent(asPath)}`
+            }>
             <Button variant='ghost' color='current'>
-              {token ? 'Logout' : 'Login'}
+              {token ? 'Sign out' : 'Sign in'}
             </Button>
           </Link>
         </Flex>
