@@ -7,6 +7,6 @@
     "silent": true
   },
   "env": {
-    "AUTH_CLIENT_SECRET": "@auth_client_secret"
+    "AUTH_CLIENT_SECRET": "@auth-client-secret"
   }
 }
