@@ -5,5 +5,8 @@
   "regions": ["bru1"],
   "github": {
     "silent": true
+  },
+  "env": {
+    "AUTH_CLIENT_SECRET": "@auth_client_secret"
   }
 }
