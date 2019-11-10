@@ -2,14 +2,21 @@ import { NextPage } from 'next';
 import { redirect } from '../util/redirect';
 import { removeToken, getToken } from '../util/auth';
 import { Redirect } from '../components/Redirect';
-import nookies from 'nookies';
+import Head from 'next/head';
 
 interface SignoutProps {
   redirectURL: string;
 }
 
 const Signout: NextPage<SignoutProps> = ({ redirectURL }) => {
-  return <Redirect redirectURL={redirectURL} page='signout page' />;
+  return (
+    <>
+      <Head>
+        <title>Sign out | codelympics.dev</title>
+      </Head>
+      <Redirect redirectURL={redirectURL} page='signout page' />
+    </>
+  );
 };
 
 Signout.getInitialProps = async ctx => {

@@ -7,6 +7,7 @@ import { AttemptRow } from '../../components/Attempt';
 import { Markdown } from '../../components/Markdown';
 import { formatDistance, isBefore } from 'date-fns';
 import Link from '../../components/Link';
+import Head from 'next/head';
 
 const SigninMessage = () => {
   const { asPath } = useRouter();
@@ -37,9 +38,14 @@ const Challenge = () => {
   });
   if (!isQueryReady(query)) {
     return (
-      <Flex align='center' direction='column' pt={5}>
-        <GraphQLHelper query={query} />
-      </Flex>
+      <>
+        <Head>
+          <title>Loading challenge | codelympics.dev</title>
+        </Head>
+        <Flex align='center' direction='column' pt={5}>
+          <GraphQLHelper query={query} />
+        </Flex>
+      </>
     );
   }
   const { challenge } = query.data;
@@ -49,52 +55,57 @@ const Challenge = () => {
   const resultsPublished = isBefore(now, resultsDate);
 
   return (
-    <Box>
-      <Heading as='h2' size='xl'>
-        {challenge.name}
-      </Heading>
-      <Box
-        mt={2}
-        color='gray.500'
-        fontWeight='semibold'
-        letterSpacing='wide'
-        fontSize='xs'
-        textTransform='uppercase'>
-        Published at {publishDate.toLocaleString()} &bull;{' '}
-        {resultsPublished
-          ? `Results in ${formatDistance(now, resultsDate)}`
-          : 'Challenge is over'}
-      </Box>
-      <Box mt={4}>
-        <Markdown source={challenge.description} />
-      </Box>
+    <>
+      <Head>
+        <title>{challenge.name} | codelympics.dev</title>
+      </Head>
+      <Box>
+        <Heading as='h2' size='xl'>
+          {challenge.name}
+        </Heading>
+        <Box
+          mt={2}
+          color='gray.500'
+          fontWeight='semibold'
+          letterSpacing='wide'
+          fontSize='xs'
+          textTransform='uppercase'>
+          Published at {publishDate.toLocaleString()} &bull;{' '}
+          {resultsPublished
+            ? `Results in ${formatDistance(now, resultsDate)}`
+            : 'Challenge is over'}
+        </Box>
+        <Box mt={4}>
+          <Markdown source={challenge.description} />
+        </Box>
 
-      <Heading size='lg' mt={5}>
-        Attempts
-      </Heading>
-      {isSignedIn ? (
-        <Flex
-          align='stretch'
-          w='100%'
-          direction='column'
-          mt={5}
-          rounded='lg'
-          borderWidth='1px'
-          overflow='hidden'>
-          {challenge.attempts
-            ? challenge.attempts.map((attempt, i) => (
-                <AttemptRow
-                  attempt={attempt}
-                  i={challenge.attempts.length - i}
-                  key={attempt.id}
-                />
-              ))
-            : null}
-        </Flex>
-      ) : (
-        <SigninMessage />
-      )}
-    </Box>
+        <Heading size='lg' mt={5}>
+          Attempts
+        </Heading>
+        {isSignedIn ? (
+          <Flex
+            align='stretch'
+            w='100%'
+            direction='column'
+            mt={5}
+            rounded='lg'
+            borderWidth='1px'
+            overflow='hidden'>
+            {challenge.attempts
+              ? challenge.attempts.map((attempt, i) => (
+                  <AttemptRow
+                    attempt={attempt}
+                    i={challenge.attempts.length - i}
+                    key={attempt.id}
+                  />
+                ))
+              : null}
+          </Flex>
+        ) : (
+          <SigninMessage />
+        )}
+      </Box>
+    </>
   );
 };
 

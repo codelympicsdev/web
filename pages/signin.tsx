@@ -3,13 +3,21 @@ import { redirect } from '../util/redirect';
 import { Redirect } from '../components/Redirect';
 import { auth } from '../util/auth';
 import { HOME_URL } from '../util/config';
+import { Head } from 'next/document';
 
 interface LoginProps {
   redirectURL: string;
 }
 
 const Login: NextPage<LoginProps> = ({ redirectURL }) => {
-  return <Redirect redirectURL={redirectURL} page='signin page' />;
+  return (
+    <>
+      <Head>
+        <title>Sign in | codelympics.dev</title>
+      </Head>
+      <Redirect redirectURL={redirectURL} page='signin page' />
+    </>
+  );
 };
 
 Login.getInitialProps = async ctx => {
