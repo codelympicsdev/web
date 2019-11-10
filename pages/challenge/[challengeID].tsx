@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Flex, Heading, Box, Text } from '@chakra-ui/core';
 import { GraphQLHelper, isQueryReady } from '../../components/GraphQL';
@@ -66,13 +65,6 @@ const Challenge = () => {
           ? `Results in ${formatDistance(now, resultsDate)}`
           : 'Challenge is over'}
       </Box>
-      <Box
-        mt={2}
-        color='gray.500'
-        fontWeight='semibold'
-        letterSpacing='wide'
-        fontSize='xs'
-        textTransform='uppercase'></Box>
       <Box mt={4}>
         <Markdown source={challenge.description} />
       </Box>

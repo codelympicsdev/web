@@ -18,9 +18,10 @@ const highlightStyle = {
 };
 
 export const CodeBlock = (props: {
-  prefix: string;
   source: string;
-  language: Language;
+  language?: Language;
+  prefix?: string;
+  hasCopy?: boolean;
 }) => {
   const { colorMode } = useColorMode();
   const { hasCopied, onCopy } = useClipboard(props.source);
@@ -33,7 +34,7 @@ export const CodeBlock = (props: {
       <Highlight
         {...defaultProps}
         theme={theme}
-        code={props.prefix + props.source}
+        code={(props.prefix || '') + props.source}
         language={props.language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={{ ...style, ...highlightStyle }}>
@@ -47,9 +48,11 @@ export const CodeBlock = (props: {
           </pre>
         )}
       </Highlight>
-      <CopyButton top='18px' onClick={onCopy}>
-        {hasCopied ? 'copied' : 'copy'}
-      </CopyButton>
+      {props.hasCopy ? (
+        <CopyButton top='18px' onClick={onCopy}>
+          {hasCopied ? 'copied' : 'copy'}
+        </CopyButton>
+      ) : null}
     </Box>
   );
 };

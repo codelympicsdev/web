@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const withPreact = (nextConfig = {}) => {
   return Object.assign({}, nextConfig, {
     webpack(config, options) {

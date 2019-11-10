@@ -5,7 +5,11 @@ import { useRouter } from 'next/router';
 
 const Header = () => {
   const token = useToken();
-  const { asPath } = useRouter();
+  const { asPath, pathname, query } = useRouter();
+  let authRedirect = asPath;
+  if (query.redirect) {
+    authRedirect = Array.isArray(query.redirect) ? '/' : query.redirect || '/';
+  }
 
   const { colorMode } = useColorMode();
   const bg = { light: 'white', dark: 'gray.800' };
@@ -46,8 +50,8 @@ const Header = () => {
           <Link
             href={
               token
-                ? `/signout?redirect=${encodeURIComponent(asPath)}`
-                : `/signin?redirect=${encodeURIComponent(asPath)}`
+                ? `/signout?redirect=${encodeURIComponent(authRedirect)}`
+                : `/signin?redirect=${encodeURIComponent(authRedirect)}`
             }>
             <Button variant='ghost' color='current'>
               {token ? 'Sign out' : 'Sign in'}

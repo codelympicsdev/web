@@ -1,7 +1,7 @@
 import { NextPageContext } from 'next';
 import nookies from 'nookies';
 import ClientOAuth2 from 'client-oauth2';
-import { AUTH_CLIENT_ID, AUTH_URL, AUTH_CLIENT_SECRET } from './config';
+import { AUTH_CLIENT_ID, AUTH_URL, AUTH_CLIENT_SECRET, DOMAIN } from './config';
 import fetch from 'isomorphic-unfetch';
 
 export const auth = new ClientOAuth2(
@@ -50,5 +50,8 @@ export const setToken = (ctx: NextPageContext, token: string) => {
 };
 
 export const removeToken = (ctx: NextPageContext) => {
-  nookies.destroy(ctx, 'token');
+  nookies.destroy(ctx, 'token', {
+    path: '/',
+    domain: DOMAIN,
+  });
 };

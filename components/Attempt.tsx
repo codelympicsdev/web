@@ -1,13 +1,13 @@
 import { Attempt } from '../graphql';
 import { Box, Badge, Flex, Heading } from '@chakra-ui/core';
 import Link from 'next/link';
+import { isBefore } from 'date-fns';
 
 export const AttemptRow = (props: { attempt: Attempt; i: number }) => {
   const { attempt } = props;
   const now = new Date();
-  const startedDate = new Date(attempt.started);
-  const timeoutDate = new Date(attempt.timeout);
-  const completedDate = new Date(attempt.completed);
+  const creationDate = new Date(attempt.creation_date);
+  const timeoutDate = new Date(attempt.timeout_date);
   const isCorrect =
     attempt.recieved_output &&
     attempt.expected_output &&
@@ -17,20 +17,20 @@ export const AttemptRow = (props: { attempt: Attempt; i: number }) => {
   return (
     <Link href='/attempt/[attemptID]' as={`/attempt/${attempt.id}`}>
       <Flex w='100%' borderY='1px' justify='space-between' p={2}>
-        <Flex>
+        <Flex mr={2}>
           <Heading size='md' mr={2}>
             Attempt {props.i}
           </Heading>
           <Box>
-            {attempt.completed ? (
+            {attempt.recieved_output ? (
               attempt.expected_output ? (
                 isCorrect ? (
                   <Badge rounded='full' px='2' variantColor='green'>
-                    Correct Response
+                    Correct response
                   </Badge>
                 ) : (
                   <Badge rounded='full' px='2' variantColor='red'>
-                    Incorrect Response
+                    Incorrect response
                   </Badge>
                 )
               ) : (
@@ -38,13 +38,13 @@ export const AttemptRow = (props: { attempt: Attempt; i: number }) => {
                   Waiting for results
                 </Badge>
               )
-            ) : timeoutDate > now ? (
+            ) : isBefore(timeoutDate, now) ? (
               <Badge rounded='full' px='2' variantColor='red'>
                 Timed out
               </Badge>
             ) : (
               <Badge rounded='full' px='2' variantColor='blue'>
-                Running
+                Waiting for submission
               </Badge>
             )}
           </Box>
@@ -55,7 +55,7 @@ export const AttemptRow = (props: { attempt: Attempt; i: number }) => {
           letterSpacing='wide'
           fontSize='xs'
           textTransform='uppercase'>
-          Started at {startedDate.toLocaleString()}
+          Started at {creationDate.toLocaleString()}
         </Box>
       </Flex>
     </Link>

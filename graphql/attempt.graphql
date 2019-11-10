@@ -1,0 +1,25 @@
+query AttemptDetails($id: ID!) {
+  attempt(id: $id) {
+    creation_date
+    timeout_date
+    submission_date
+    input {
+      arguments
+      stdin
+    }
+    recieved_output {
+      stdout
+      stderr
+    }
+    expected_output {
+      stdout
+      stderr
+    }
+    challenge {
+      id
+      name
+      description
+      results_date
+    }
+  }
+}
